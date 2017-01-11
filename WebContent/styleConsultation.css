@@ -1,0 +1,125 @@
+body {
+	font-family: ' UniversRoman', 'Trebuchet MS', Arial, sans-serif;
+}
+
+/* ------------------------------------ debut mise en forme d'un Article -------------*/
+#conteneurArticle {
+	display: flex;
+	justify-content: flex-start;
+}
+
+/* img {
+	width : 300px;
+} */
+.imageArticle {
+	padding-top: 50px;
+	padding-right: 100px;
+}
+
+.infosArticle {
+	display: flex;
+	flex-direction: column;
+	align-self: flex-start;
+}
+
+.infoAchat, .infoDetail {
+	border-top: 1px solid #DDD;
+}
+
+/* .conteneur > div {
+	display : flex;
+	width : 30%;
+	
+} */
+/*
+@media only screen and (max-width: 768px) {
+	#conteneurArticle {
+		display: flex;
+		flex-direction: column;
+	}
+	img {
+		width: 100px;
+	}
+	.infoListe {
+		width: 20px;
+	}
+}
+*/
+/* --------------------------------- fin mise en forme d'un Article -------------*/
+
+/* ----------------------------------- debut mise en forme du panier ------------------ */
+.titre {
+	text-align: center;
+}
+
+.tabPanier .liPanier {
+	border-bottom: 1px solid #DDD;
+	display: flex;
+	justify-content: space-around;
+	padding-bottom: 10px;
+	padding-top: 10px;
+	width: 100%;
+}
+
+@media only screen and (max-width: 480px) {
+	.liPanier {
+		flex-direction: column;
+	}
+}
+
+.imagePanier {
+	flex: 1;
+}
+
+.infosPanier {
+	flex: 2;
+}
+
+h2 {
+	display: inline;
+}
+
+.prixPanier {
+	flex: 1;
+	color: #b12704 !important;
+}
+
+/* .prixPanier:nth-child(1) {
+	color: #b12704!important;
+}
+ */
+.qtePanier {
+	flex: 2;
+}
+
+.prixLignePanier {
+	flex: 0.5;
+}
+
+/* ----------------------------- fin mise en forme du panier -------------------------- */
+
+
+.conteneurBoutonCommande {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-direction : column;
+}
+
+.erreurCommande {
+	display: flex;
+	flex-direction : column;
+	justify-content: center;
+	align-items: center;
+}
+
+aside {
+	position: relative;
+	background-color: #706b64;
+	box-shadow: 0px 2px 5px #1c1a19;
+	border-radius: 5px;
+	padding: 10px;
+	color: white;
+	font-size: 0.9em;
+	padding: 100px;
+}

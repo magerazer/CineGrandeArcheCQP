@@ -3,7 +3,11 @@ package fr.demos.projet.metier;
 import java.util.ArrayList;
 import java.util.Iterator;
 
+import javax.enterprise.context.SessionScoped;
+import javax.inject.Named;
 
+@Named("panier")
+@SessionScoped
 public class Panier implements Iterable<LignePanier> {
 
 	private Compte compte;

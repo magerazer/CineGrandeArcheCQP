@@ -1,0 +1,332 @@
+header {
+	width: 100%;
+	position: fixed;
+	background-color: black;
+	display: block;
+	top: 0;
+	left: 0;
+}
+
+body {
+	background-color: antiquewhite;
+	font-family: ' UniversRoman', 'Trebuchet MS', Arial, sans-serif;
+	/*background: #adb9c7 url('images/body_bg.jpg') repeat-y scroll center top;
+ */
+}
+
+.corps {
+	background-color: antiquewhite;
+	padding: 15px;
+	width: 900px;
+	margin: auto;
+	box-shadow: #464040 0px 0px 8px;
+}
+
+.headerDiv {
+	display: block;
+}
+/* ---------------------------------- debut Menu ----------------------------------- */
+#conteneurMenu {
+	height: 100px;
+	display: flex;
+	justify-content: space-around;
+	align-items: center;
+}
+
+.logo img {
+	padding-right: 10px;
+}
+
+.connexionMenu {
+	
+}
+/* 
+.logo:nth-child(2) {
+	flex: 1;
+	justify-content: space-around;
+} */
+/* header p {
+	font-size: 25px; Paragraphes de 14 pixels
+	color: white;
+} */
+.fLeft {
+	float: left;
+}
+
+.panierStyle {
+	color: white;
+	text-decoration: none;
+}
+
+
+/* --------------------------------------------- fin Menu ---------------------------------------- */
+
+/* -------------------------------------------- debut Recherche  --------------------------------- */
+#search {
+	padding-top: 50px;
+}
+
+.search {
+	padding-left: 100px;
+}
+
+.connecteMsg {
+	color: white;
+}
+
+.recherche {
+	display: flex;
+	justify-content: space-around;
+}
+/* -------------------------------------------- fin recherche --------------------------------------- */
+
+/* ---------------------------------debut liste ----------------------------- */
+.erreur {
+	color: #900;
+}
+
+.img {
+	padding-right: 100px;
+	/* border: 1px solid #000; */
+}
+
+li:nth-child(n+2) {
+	border-top: 1px solid #DDD;
+}
+
+li {
+	backround-color: blue;
+}
+
+ul {
+	list-style: none;
+	background-color: antiquewhite;
+	/* display: flex; */
+}
+
+.container {
+	padding: 7px;
+	display: flex;
+	/* flex-direction : column; */
+	justify-content: space-around;
+	/* width: 100%; */
+}
+
+/* .ajouterADroite:nth-child(3) {
+	align-self: flex-end;
+} */
+.elementLi1:nth-child(1) {
+	display: flex;
+	justify-content: space-around;
+}
+
+.elementLi2:nth-child(1) {
+	display: flex;
+	justify-content: space-between;
+}
+
+.elementLi1 {
+	/*max-width: 50%;*/
+	display: flex;
+	/* 	flex-direction : column; */
+	/* flex:2; */
+}
+
+.imgLi {
+	padding-right: 100px;
+}
+
+.nomLi {
+	font-size: 24px;
+}
+.dateEtFormat {
+	font-weight: 400!important;
+	font-size: 17px!important;	
+}
+.infoListe {
+	display: flex;
+	flex-direction: column;
+	justify-content: space-around;
+	width: 500px;
+	min-width: 100px;
+	
+}
+
+.elementLi2 {
+	padding-left: 10px;
+	/* flex:1; */
+}
+
+.prix {
+	font-weight: 700!important;
+	color: #b12704!important;	
+}
+
+@media only screen and (max-width: 480px) {
+	header {
+		position: relative;
+	}
+	#conteneurMenu {
+		height: 300px;
+		flex-direction: column;
+	}
+	.contentListe {
+		padding-top: 0em;
+	}
+	.container {
+		flex-direction: column;
+	}
+	.elementLi1 {
+		flex-direction: column;
+	}
+	.imageArticle > img {
+		width: 30%;
+	}
+	#conteneurArticle {
+		display: flex;
+		flex-direction: column;
+	}
+	 .infoListe {
+		width: auto;
+	} 
+	.liCde {	
+	flex-direction : column;
+	
+}
+}
+
+@media only screen and (max-width: 850px) and (min-width: 480px) {
+	#conteneurMenu {
+		height: 200px;
+	}
+	.contentListe {
+		padding-top: 15em;
+	}
+	#conteneurArticle {
+		display: flex;
+		flex-direction: column;
+	}
+	.imageArticle > img {
+		width: 30%;
+	}
+	.elementLi1 {
+	max-width: 50%;
+	}
+	.elementLi2 {
+		padding-left: 10px;
+	}
+	 .infoListe {
+		width: auto;
+	} 
+}
+
+@media only screen and (min-width: 850px) {
+	.contentListe {
+		padding-top: 6em;
+	}
+	
+}
+
+/* @media only screen and (max-width: 480px) {
+	.container {
+		flex-direction: column;
+	}
+	.elementLi1 {
+		flex-direction: column;
+	}
+	.infoListe {
+		width: 100%;
+	}
+} */
+
+/* -------------------------------------- fin liste ------------------------- */
+/* -------------------------------------- début Commande ----------------------*/
+.historiqueCentre {
+		display : flex;
+		justify-content : center;
+		flex-wrap : wrap;
+		
+}
+.blocCommande {
+		border: 1px #ddd solid;
+		border-radius: 4px 4px 4px 4px;
+		width : 60%;
+} 
+.enteteBlocCommande {
+	 background-color: #f6f6f6!important;
+	 border-radius: 4px 4px 0 0;
+} 
+.texteCentre {
+	
+	padding: 14px 18px;
+} 
+.texteCentreEntete {
+	display : flex;
+	justify-content : space-between;
+	padding: 14px 18px;
+}  
+.imageCde {
+	padding-right : 100px;
+}
+
+.liCde {
+	display: flex;
+	flex-wrap : wrap;
+	justify-content: space-around;
+	padding-bottom: 10px;
+	padding-top: 10px;
+	width: 100%;
+}
+/* -------------------------------------- fin Commande ------------------------- */
+/* -------------------------------------- début Creation compte ------------------------- */
+/*.compte > input, .adresse > input, .adresse > select {
+	margin-bottom : 14px;	
+	height: 25px;
+    padding: 3px 7px;
+    border-radius: 3px;
+   	width:400px;
+	
+}
+*/
+
+.compte {
+	/*width : 1900px*/
+}
+
+.compte input {
+	float: left;
+    width: 300px;
+    margin: 3px 0px 0px 0px;
+    
+}
+
+form .compte label {
+    float: left;
+    width: 280px;
+    margin: 3px 0px 0px 0px;
+}
+
+.adresse > label {
+	display: block;
+	width: 150px;
+	float: left;
+	text-align : right;
+}
+input+.tooltip{
+    display: none;
+}
+input:focus+.tooltip{
+    display: block;
+}
+	
+/* .tooltip {
+	display: inline-block;
+	margin-left: 20px;
+	padding: 2px 4px;
+	border: 1px solid #555;
+	background-color: #CCC;
+	border-radius: 4px;
+	max-width : 300px;
+} */
+
+/* -------------------------------------- fin Création compte ------------------------- */

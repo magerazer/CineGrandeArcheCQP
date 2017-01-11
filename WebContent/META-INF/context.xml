@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<Context>
+
+    <!-- Default set of monitored resources. If one of these changes, the    -->
+    <!-- web application will be reloaded.                                   -->
+    <WatchedResource>WEB-INF/web.xml</WatchedResource>
+    <WatchedResource>${catalina.base}/conf/web.xml</WatchedResource>
+
+    <!-- Uncomment this to disable session persistence across Tomcat restarts -->
+    <!--
+    <Manager pathname="" />
+    -->
+    
+    <!-- 
+    on utilise le nouveau pool de connexions de Tomcat valable depuis tomcat 7 (choix par la factory) et non plus commons dbcp
+    qui n'était pas multi-thread 
+    les prop pour le configurer sont :
+    initialSize
+    maxActive
+    maxIdle
+    minIdle
+    
+     -->
+    
+    
+    <Resource  	name="jdbc/CineGrandeArche" 
+    			auth="Container" 
+    			type="javax.sql.DataSource"
+    		  	factory="org.apache.tomcat.jdbc.pool.DataSourceFactory"
+               	maxActive="100" 
+               	maxIdle="30" 
+               	maxWaitMillis="10000"
+               	username="CineGrandeArcheDBA" 
+               	password="Demos" 
+               	driverClassName="com.mysql.jdbc.Driver"
+               	url="jdbc:mysql://localhost:3306/cinegrandearche"/>
+               	               	               	
+</Context>
+
+
+
+

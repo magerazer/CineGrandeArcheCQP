@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.inject.Inject;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -29,6 +30,9 @@ import fr.demos.projet.metier.StockException;
 public class PanierControleur extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
+	@Inject Panier panier;
+	
+	
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */

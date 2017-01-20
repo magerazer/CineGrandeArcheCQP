@@ -8,6 +8,32 @@
 <title>Insert title here</title>
 <link type="text/css" rel="stylesheet" href="style.css" />
 <link type="text/css" rel="stylesheet" href="styleConsultation.css" />
+<script>
+	function appelAjax(ref, qte) {
+		
+		var xhr; 
+		xhr = new XMLHttpRequest(); 
+		xhr.onreadystatechange = function() {
+			if(xhr.readyState == 4) {
+				// recuperation balise span 
+				var total = document.getElementById("total");
+				if(xhr.status == 200) {
+					// on remplit le corps du span avec ce qui vient du serveur
+					total.innerHTML=xhr.responseText;
+					//alert(xhr.responseText);
+				}  
+			}
+		};
+		
+		//var qte = document.getElementById("qte");
+		
+		xhr.open("GET", "PanierAsync?ref=divers_mat_1&qte=" + qte
+				+ "&modifier=true", true); 
+		
+			//	+ document.getElementById('total').value, true); 
+		xhr.send(null);
+	}
+</script>
 </head>
 <body>
 
@@ -45,7 +71,10 @@
 							<p class="prixPanier">Prix :  ${lignePanier.article.prixHT} €</p>
 
 							<p class="prixLignePanier">
+						
+						
 						Total article: ${ lignePanier.prixTot } €
+						
 						</p>
 						<c:if test="${not empty lignePanier.article.mat }">
 						<p>
@@ -55,7 +84,7 @@
 						</div>
 						<%-- <div class="prixPanier">Prix :  ${lignePanier.article.prixHT} €</div> --%>
 
-						<div class="qtePanier">
+						<%-- <div class="qtePanier">
 							<form action="PanierControleur" method="POST">
 								<input type="hidden" name="ref"
 									value="${lignePanier.article.ref}" /> <input type="number"
@@ -66,7 +95,20 @@
 									<span class="erreur">${erreurStock[lignePanier.article] }</span>
 							</form>
 
-					<%-- 	<span class="erreur">${erreurs[article] }</span> --%>
+						<span class="erreur">${erreurs[article] }</span>
+
+
+						</div> --%>						
+						<div class="qtePanier">							
+								<input type="hidden" name="ref" 
+								id="${lignePanier.article.ref}" /> <input type="number"
+									min="0" name="qte" id="qte" value="${ lignePanier.quantite }" /> 
+									<button value="Modifier quantité" name="modifierPanier" onclick="appelAjax(${lignePanier.article.ref}, document.getElementById('qte').value);">Modifier quantité</button>									
+									<button value="Delete" name="delete">Delete</button> <br>
+									<span class="erreur">${erreurs[lignePanier.article] }</span>
+									<span class="erreur">${erreurStock[lignePanier.article] }</span>						
+
+						<span class="erreur">${erreurs[article] }</span>
 
 
 						</div>
@@ -91,7 +133,8 @@
 	
 	<em>Sous total ( ${ panier.quantite }) </em>
 	
-	<div>Montant : <span class="prixPanier"> ${ panier.prixTotal } €</span></div>
+	<div>Montant : <span class="prixPanier"><span id="total">${ panier.prixTotal } €</span> </span></div>
+	<!-- <div>Montant : <span id="total"> </span></div> -->
 
 	<form action="CommandeControleur" method="POST">
 		<input type="submit" value="Commander" name="commander" />

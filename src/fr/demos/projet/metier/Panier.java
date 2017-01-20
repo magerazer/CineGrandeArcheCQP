@@ -1,5 +1,6 @@
 package fr.demos.projet.metier;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Iterator;
 
@@ -8,7 +9,7 @@ import javax.inject.Named;
 
 @Named("panier")
 @SessionScoped
-public class Panier implements Iterable<LignePanier> {
+public class Panier implements Iterable<LignePanier>, Serializable {
 
 	private Compte compte;
 	private ArrayList<LignePanier> panier = new ArrayList<>();

@@ -7,6 +7,26 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
 <link type="text/css" rel="stylesheet" href="style.css" />
+<script>
+	function appelAjax() {
+		//alert("on est dans appel");
+		var xhr; 
+		xhr = new XMLHttpRequest(); 
+		xhr.onreadystatechange = function() {
+			if(xhr.readyState == 4) {
+				// recuperation balise span 
+				var span = document.getElementById("affichage");
+				if(xhr.status == 200) {
+					// on remplit le corps du span avec ce qui vient du serveur
+					span.innerHTML=xhr.responseText; 
+				}  
+			}
+		};
+		xhr.open("GET", "CompleteSaisie?saisie=" 
+				+ document.getElementById('saisie').value, true); 
+		xhr.send(null);
+	}
+</script>
 </head>
 <body>
 

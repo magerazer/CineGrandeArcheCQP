@@ -1,7 +1,7 @@
 package fr.demos.projet.controleur;
 
 import java.io.IOException;
-import java.util.ArrayList;
+import java.io.PrintWriter;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -15,55 +15,39 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import fr.demos.projet.data.ArticleDAOMySQL;
-
 import fr.demos.projet.metier.Article;
 import fr.demos.projet.metier.ArticleInconnuException;
 import fr.demos.projet.metier.DematerialiseException;
-import fr.demos.projet.metier.LignePanier;
 import fr.demos.projet.metier.Panier;
 import fr.demos.projet.metier.StockException;
 
 /**
- * Servlet implementation class PanierControleur
+ * Servlet implementation class PanierAsync
  */
-@WebServlet("/PanierControleur")
-public class PanierControleur extends HttpServlet {
+@WebServlet("/PanierAsync")
+public class PanierAsync extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-
+       
 	@Inject Panier panier;
 	
-	
-	/**
-	 * @see HttpServlet#HttpServlet()
-	 */
-	public PanierControleur() {
-		super();
-		// TODO Auto-generated constructor stub
-	}
+    /**
+     * @see HttpServlet#HttpServlet()
+     */
+    public PanierAsync() {
+        super();
+        // TODO Auto-generated constructor stub
+    }
 
 	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
-	 *      response)
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
-		HttpSession session = request.getSession();
-		//Panier panier = (Panier) request.getSession().getAttribute("panier");
-		//int prixTotal = panier.getPrixTotal();
-		//request.setAttribute("prixTotal", prixTotal);
-		request.setAttribute("panier", panier);
-		RequestDispatcher rd = request.getRequestDispatcher("/PanierVue.jsp");
-		rd.forward(request, response);
-		session.setAttribute("pageCourante", "/PanierVue.jsp");
-	}
-
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
-	 *      response)
-	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
-
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		System.out.println("=================================== ici");
+		PrintWriter out = response.getWriter();
+		
+		String total = request.getParameter("total");
+		
+		
 		HttpSession session = request.getSession();
 		ArticleDAOMySQL articleDao = (ArticleDAOMySQL) request.getServletContext().getAttribute("articleDao");
 		// List<Article> liste = d.remplirCatalogue();
@@ -72,12 +56,19 @@ public class PanierControleur extends HttpServlet {
 		// permet de se repositionner sur la page à partir de laquelle on a
 		// ajoute l'article
 		String ajouter = request.getParameter("ajouter");				
-		String modifier = request.getParameter("modifierPanier");
+		String modifier = request.getParameter("modifier");
 		String delete = request.getParameter("delete");
 
 		String consulter = request.getParameter("consulter");
 		
+		System.out.println("ref ajax : " + request.getParameter("ref") + " qte = " +  request.getParameter("qte"));
+		/* 
+		 * on sélectionne en AJAX la ref et qte
+		 */
 		String reference = request.getParameter("ref");
+		String qteStr = request.getParameter("qte");
+		
+		
 		
 		Article a = articleDao.selectArticle(reference);
 		/*
@@ -87,8 +78,8 @@ public class PanierControleur extends HttpServlet {
 		request.setAttribute("erreurs", erreurs);
 		
 		
-		if (ajouter != null || modifier != null) {
-			String qteStr = request.getParameter("qte");
+		if (ajouter != null || modifier.equals("true")) {
+			//String qteStr = request.getParameter("qte");
 
 			int qte = 0;
 			try {
@@ -102,7 +93,7 @@ public class PanierControleur extends HttpServlet {
 						try {
 				if(ajouter != null)
 					panier.ajouter(a, qte);
-				if(modifier != null)
+				if(modifier.equals("true"))
 					panier.modifierQte(a, qte);
 				
 			} catch (StockException e) {
@@ -122,34 +113,35 @@ public class PanierControleur extends HttpServlet {
 //		session.setAttribute("lignes", l);
 //			
 		
-		RequestDispatcher rd = null;
-		
 		if (consulter != null) {
 			if (consulter.equals("false")) {
 
-				rd = request.getRequestDispatcher("/ListeArticlesVue.jsp");
 			} else{// garder l'article sur lequel on etait positionne
 
 				System.out.println("ref = " + reference);
 				
 				request.setAttribute("article", a);
-				rd = request.getRequestDispatcher("/ArticleVue.jsp");
 			} 
 		} 
 		
 		if(modifier != null) {
 
-			rd = request.getRequestDispatcher("/PanierVue.jsp");
 
 		}
 		
 		if(delete != null) {
 			panier.supprimerLigne(a);
-			rd = request.getRequestDispatcher("/PanierVue.jsp");
 
 		}
 		
-		rd.forward(request, response);
+		out.println(panier.getPrixTotal() + ":" + panier.getQuantite());
+		
+	}
+
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 */
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 	}
 

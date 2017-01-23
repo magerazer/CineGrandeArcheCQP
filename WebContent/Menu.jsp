@@ -46,7 +46,7 @@
 		<!-- accéder au panier -->
 		<div class="panierMenu">
 			<p>
-				<a href="PanierControleur" class="panierStyle">Panier : ${ panier.quantite }</a>
+				<a href="PanierControleur" class="panierStyle">Panier : <span id="qteTotPanier">${ panier.quantite }</span></a>
 			</p>
 		</div>
 

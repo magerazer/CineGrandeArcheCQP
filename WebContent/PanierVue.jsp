@@ -8,46 +8,21 @@
 <title>Insert title here</title>
 <link type="text/css" rel="stylesheet" href="style.css" />
 <link type="text/css" rel="stylesheet" href="styleConsultation.css" />
-<script>
-	function appelAjax(ref, qte) {
-		
-		var xhr; 
-		xhr = new XMLHttpRequest(); 
-		xhr.onreadystatechange = function() {
-			if(xhr.readyState == 4) {
-				// recuperation balise span 
-				var total = document.getElementById("total");
-				if(xhr.status == 200) {
-					// on remplit le corps du span avec ce qui vient du serveur
-					total.innerHTML=xhr.responseText;
-					//alert(xhr.responseText);
-				}  
-			}
-		};
-		
-		//var qte = document.getElementById("qte");
-		
-		xhr.open("GET", "PanierAsync?ref=divers_mat_1&qte=" + qte
-				+ "&modifier=true", true); 
-		
-			//	+ document.getElementById('total').value, true); 
-		xhr.send(null);
-	}
-</script>
+<script src="malib.js"></script>
 </head>
 <body>
 
 	<c:import url="/Menu.jsp" />
-<div class = "contentListe">
-<span class="titre"><h1>Votre panier</h1></span>
-	<%-- <p>panier : ${ lignes }</p> --%>
+	<div class="contentListe">
+		<span class="titre"><h1>Votre panier</h1></span>
+		<%-- <p>panier : ${ lignes }</p> --%>
 
 
-	<div class="listePanier">
+		<div class="listePanier">
 
-		<ul>
-		<!-- <div class="tabPanier"> -->
-		<!-- 	<li class="liPanier">
+			<ul>
+				<!-- <div class="tabPanier"> -->
+				<!-- 	<li class="liPanier">
 				
 					<div class="imagePanier"><img src="" width="50px" /></div>
 					<div class="infosPanier"></div>
@@ -57,34 +32,29 @@
 						
 			</li> -->
 				<!-- </div> -->
-			<c:forEach var="lignePanier" items="${panier.iterator()}">
-				 <div class="tabPanier"> 
-				<li class="liPanier">
-					
-						<div class="imagePanier">
-							<img src="${ lignePanier.article.image }" width="50px" />
-						</div>
-						<div class="infosPanier">
+				<c:set var="indice" value="0"></c:set>
+				<c:forEach var="lignePanier" items="${panier.iterator()}">
+					<c:set var="indice" value="${ indice+1}"></c:set>
+					<div class="tabPanier">
+						<li class="liPanier">
 
-							<h2>${lignePanier.article.nom}</h2>
+							<div class="imagePanier">
+								<img src="${ lignePanier.article.image }" width="50px" />
+							</div>
+							<div class="infosPanier">
 
-							<p class="prixPanier">Prix :  ${lignePanier.article.prixHT} €</p>
+								<h2>${lignePanier.article.nom}</h2>
 
-							<p class="prixLignePanier">
-						
-						
-						Total article: ${ lignePanier.prixTot } €
-						
-						</p>
-						<c:if test="${not empty lignePanier.article.mat }">
-						<p>
-						Stock : ${lignePanier.article.mat.stock }
-						</p>
-						</c:if>
-						</div>
-						<%-- <div class="prixPanier">Prix :  ${lignePanier.article.prixHT} €</div> --%>
+								<p class="prixPanier">Prix : ${lignePanier.article.prixHT} €</p>
 
-						<%-- <div class="qtePanier">
+								<p class="prixLignePanier">Total article: ${ lignePanier.prixTot }
+									€</p>
+								<c:if test="${not empty lignePanier.article.mat }">
+									<p>Stock : ${lignePanier.article.mat.stock }</p>
+								</c:if>
+							</div> <%-- <div class="prixPanier">Prix :  ${lignePanier.article.prixHT} €</div> --%>
+
+							<%-- <div class="qtePanier">
 							<form action="PanierControleur" method="POST">
 								<input type="hidden" name="ref"
 									value="${lignePanier.article.ref}" /> <input type="number"
@@ -98,55 +68,64 @@
 						<span class="erreur">${erreurs[article] }</span>
 
 
-						</div> --%>						
-						<div class="qtePanier">							
-								<input type="hidden" name="ref" 
-								id="${lignePanier.article.ref}" /> <input type="number"
-									min="0" name="qte" id="qte" value="${ lignePanier.quantite }" /> 
-									<button value="Modifier quantité" name="modifierPanier" onclick="appelAjax(${lignePanier.article.ref}, document.getElementById('qte').value);">Modifier quantité</button>									
-									<button value="Delete" name="delete">Delete</button> <br>
-									<span class="erreur">${erreurs[lignePanier.article] }</span>
-									<span class="erreur">${erreurStock[lignePanier.article] }</span>						
+						</div> --%>
+							<div class="qtePanier">
+								<%-- <input type="hidden" name="ref" id="ref${indice}" value="${lignePanier.article.ref}" />  --%><input
+									type="number" min="0" name="qte" id="qte${indice}"
+									value="${ lignePanier.quantite }" /> <input type="button"
+									value="Modifier quantité" name="modifierPanier"
+				<%-- 					onclick="appelAjax(${lignePanier.article.ref}, document.getElementById('qte').value);" /> --%>
+				onclick="appelAjax(
+				'${lignePanier.article.ref}',
+				document.getElementById('qte${indice}').value
+				);" />
+				
+								<input type="button" value="Delete" name="delete" /> <br> <span
+									class="erreur">${erreurs[lignePanier.article] }</span> <span
+									class="erreur">${erreurStock[lignePanier.article] }</span> <span
+									class="erreur">${erreurs[article] }</span>
 
-						<span class="erreur">${erreurs[article] }</span>
 
-
-						</div>
-						<%-- <div>
+							</div> <%-- <div>
 						<form action="PanierControleur" method="POST">
 								<input type="hidden" name="ref"
 									value="${lignePanier.article.ref}" /> <input type="submit"
 									value="Delete" name="delete" />
 							</form>
 						</div> --%>
-						
-						
-					
-				</li>
-			</div> 
-			</c:forEach>
-		</ul>
+
+
+
+						</li>
+					</div>
+				</c:forEach>
+			</ul>
+		</div>
+
+		<div class="conteneurBoutonCommande">
+			<div class="erreurCommande">
+
+				<em>Sous total ( <span id="qteTot"> ${ panier.quantite }</span> ) </em>
+
+				<div>
+					Montant : <span class="prixPanier"><span id="total">${ panier.prixTotal } </span>
+							€ </span>
+				</div>
+				<!-- <div>Montant : <span id="total"> </span></div> -->
+
+				<form action="CommandeControleur" method="POST">
+					<input type="submit" value="Commander" name="commander" />
+
+				</form>
+				<div>
+					<span class="erreur">${ nonConnecte }</span>
+				</div>
+			</div>
+		</div>
+
+
 	</div>
-
-<div class="conteneurBoutonCommande">
-	<div class="erreurCommande">
-	
-	<em>Sous total ( ${ panier.quantite }) </em>
-	
-	<div>Montant : <span class="prixPanier"><span id="total">${ panier.prixTotal } €</span> </span></div>
-	<!-- <div>Montant : <span id="total"> </span></div> -->
-
-	<form action="CommandeControleur" method="POST">
-		<input type="submit" value="Commander" name="commander" />
-		
-	</form>
-	<div><span class="erreur">${ nonConnecte }</span></div>
-	</div>
-</div>
-
-
-</div>
-<!-- 
+	<!-- 
 <div class="column-layout">
   <div>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Velit quia, quam delectus sequi odio fugit pariatur architecto, deleniti exercitationem quae adipisci ipsum ullam officia ea!</div>
   <div>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consectetur adipisci, quod voluptates, vel nostrum ea distinctio, a tempore voluptas reiciendis doloremque veniam, accusantium. Veritatis ipsum modi doloribus enim sint magnam, delectus dolorum, aperiam! Eaque dolor, veniam eum sunt dolorem nostrum. Dolores, corporis! Magnam, amet quas? Voluptates eaque quaerat quia inventore, earum eveniet hic alias rem atque neque ab, reprehenderit dolore culpa, blanditiis! Maiores enim rerum architecto voluptatibus cumque. Debitis accusamus ea aut incidunt voluptatibus quibusdam rem sint laboriosam qui sit odio expedita illum iste consectetur fugit eaque commodi pariatur, porro ex delectus officia ratione necessitatibus totam. Necessitatibus est autem et.</div>

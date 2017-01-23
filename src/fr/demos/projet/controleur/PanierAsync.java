@@ -35,7 +35,7 @@ public class PanierAsync extends HttpServlet {
      */
     public PanierAsync() {
         super();
-        // TODO Auto-generated constructor stub
+        // TODO Auto-generated constr  uctor stub
     }
 
 	/**
@@ -77,8 +77,8 @@ public class PanierAsync extends HttpServlet {
 		 Map<Article, String> erreurs = new HashMap<Article, String>();
 		request.setAttribute("erreurs", erreurs);
 		
-		
-		if (ajouter != null || modifier.equals("true")) {
+//		if(modifier != null && ajouter != null)
+		if ((modifier != null && modifier.equals("true")) || (ajouter != null && ajouter.equals("true")) ) {
 			//String qteStr = request.getParameter("qte");
 
 			int qte = 0;
@@ -91,9 +91,9 @@ public class PanierAsync extends HttpServlet {
 			
 			//System.out.println("article rempli : " + a);
 						try {
-				if(ajouter != null)
+				if(ajouter != null && ajouter.equals("true"))
 					panier.ajouter(a, qte);
-				if(modifier.equals("true"))
+				if(modifier != null && modifier.equals("true"))
 					panier.modifierQte(a, qte);
 				
 			} catch (StockException e) {
@@ -124,9 +124,21 @@ public class PanierAsync extends HttpServlet {
 			} 
 		} 
 		
-		if(modifier != null) {
+		if(modifier != null && modifier.equals("true")) {
+			out.println(panier.getPrixTotal() + ":" + panier.getQuantite());
+//			out.println("{"
+//					+ "'prixTotal':'"+ panier.getPrixTotal()+"',"
+//					+ "'qte':'"+panier.getQuantite()+"'"
+//							+ "}");
 
-
+		}
+		
+		if(ajouter != null && ajouter.equals("true")) {
+			//out.println(panier.getQuantite());
+			out.println("{"
+					+ "\"qte\":"+ panier.getQuantite()+""
+							+ "}");
+			
 		}
 		
 		if(delete != null) {
@@ -134,7 +146,6 @@ public class PanierAsync extends HttpServlet {
 
 		}
 		
-		out.println(panier.getPrixTotal() + ":" + panier.getQuantite());
 		
 	}
 

@@ -15,15 +15,15 @@ function appelAjax(ref, qte) {
 				
 				if(xhr.status == 200) {
 					
-					var resultAvecSeparateur = xhr.responseText;
+					var resultObjet = JSON.parse(xhr.responseText);
 					//alert(xhr.responseText);
-					var result = resultAvecSeparateur.split(":");
+					//var result = resultAvecSeparateur.split(":");
 							
 					
 					// on remplit le corps du span avec ce qui vient du serveur
-					total.innerHTML = result[0];
-					qteTot.innerHTML = result[1];
-					qteTotPanier.innerHTML = result[1];
+					total.innerHTML = resultObjet['prixTotal'];
+					qteTot.innerHTML = resultObjet['qte'];
+					qteTotPanier.innerHTML = resultObjet['qte'];
 					
 				}  
 			}
@@ -55,7 +55,7 @@ function appelAjaxAjouter(ref, qte) {
 				//alert(resultObjet);
 				// on remplit le corps du span avec ce qui vient du serveur
 				
-				qteTotPanier.innerHTML = resultObjet['qte'];
+				qteTotPanier.innerHTML = resultObjet.qte;
 
 			}
 		}

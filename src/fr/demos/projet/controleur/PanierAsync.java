@@ -125,18 +125,19 @@ public class PanierAsync extends HttpServlet {
 		} 
 		
 		if(modifier != null && modifier.equals("true")) {
-			out.println(panier.getPrixTotal() + ":" + panier.getQuantite());
-//			out.println("{"
-//					+ "'prixTotal':'"+ panier.getPrixTotal()+"',"
-//					+ "'qte':'"+panier.getQuantite()+"'"
-//							+ "}");
+		//	out.println(panier.getPrixTotal() + ":" + panier.getQuantite());
+			out.println("{"
+					+ "\"prixTotal\":"+ panier.getPrixTotal()+","
+					+ "\"qte\":"+panier.getQuantite()
+							+ "}");
 
 		}
 		
 		if(ajouter != null && ajouter.equals("true")) {
 			//out.println(panier.getQuantite());
+			response.setContentType("application/json");
 			out.println("{"
-					+ "\"qte\":"+ panier.getQuantite()+""
+					+ "\"qte\":\""+ panier.getQuantite()+"\""
 							+ "}");
 			
 		}

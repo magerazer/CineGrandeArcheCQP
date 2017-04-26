@@ -49,7 +49,7 @@ public class Panier implements Iterable<LignePanier>, Serializable {
 
 	}
 
-	public void ajouter(Article a, int qte) throws StockException {
+	public void ajouter(Article a, int qte) throws StockException, DematerialiseException {
 		if (qte < 0) {
 			throw new IllegalArgumentException("La quantite est negative");
 		}
@@ -62,10 +62,17 @@ public class Panier implements Iterable<LignePanier>, Serializable {
 
 		// 1) cas d'une ligne existante
 		if (index != -1) {
-			if (a.getMat() != null) {
-				LignePanier ligneExistante = panier.get(index);
-				qte = ligneExistante.getQuantite() + qte;
+			
+			LignePanier ligneExistante = panier.get(index);
+			qte = ligneExistante.getQuantite() + qte;
+			
+			if (a.getMat() == null && qte > 1) {
 
+				throw new DematerialiseException(a);
+			}
+			
+			if (a.getMat() != null) {
+				
 				// gestion de l'erreur sur le stock dans le cas d'une ligne
 				// existante
 
@@ -79,6 +86,10 @@ public class Panier implements Iterable<LignePanier>, Serializable {
 		else {
 			if (a.getMat() != null) {
 				verifStock(a, qte);
+			}
+			if (a.getMat() == null && qte > 1) {
+
+				throw new DematerialiseException(a);
 			}
 			panier.add(l);
 		}

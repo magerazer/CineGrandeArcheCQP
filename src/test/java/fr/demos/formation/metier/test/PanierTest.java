@@ -79,7 +79,7 @@ public class PanierTest {
 	}
 
 	@Test
-	public void testnbarticledifferent() {
+	public void testnbarticledifferents() {
 
 		try {
 			panier.ajouter(livreMat1, 5);
